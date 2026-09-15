@@ -1,4 +1,4 @@
-# Hyperspectral Image Classification using 3D-CNN
+## Hyperspectral Image Classification using 3D-CNN
 
 [![Framework: PyTorch](https://img.shields.io/badge/Framework-PyTorch-ee4c2c.svg)](https://pytorch.org/)
 [![Domain: Computer Vision](https://img.shields.io/badge/Domain-Remote%20Sensing%20%26%20CV-green.svg)]()
@@ -11,6 +11,14 @@ Standard computer vision models operate on 3-channel RGB images, which flatten c
 
 > **Dataset Reference:**  
 > Baumgardner, M. F., Biehl, L. L., & Landgrebe, D. A. (2015). *220 Band AVIRIS Hyperspectral Image Data Set: June 12, 1992 Indian Pines Test Site.* Purdue University Research Repository (PURR). DOI: [10.4231/R7RX991C](https://doi.org/10.4231/R7RX991C)
+
+---
+
+## 🏗️ Architecture & Methodology
+
+* **Patch Extraction:** Extracts localized $9 \times 9$ spatial windows around each target pixel while meticulously preserving all 200 deep spectral channels.
+* **Volumetric Convolutions:** Implements `nn.Conv3d` blocks to process the structural data in its native 3D cube shape, represented as tensors of size $(N, 1, \text{Bands}, 9, 9)$.
+* **Joint Feature Extraction:** Unlike 2D networks that only analyze spatial shapes, the 3D-CNN simultaneously processes structural topography and distinct spectral light signatures to boost classification accuracy.
 
 ---
 
@@ -27,11 +35,17 @@ Standard computer vision models operate on 3-channel RGB images, which flatten c
 
 ---
 
-## 🏗️ Architecture & Methodology
+## 📊 Results & Visualization
 
-* **Patch Extraction:** Extracts localized $9 \times 9$ spatial windows around each target pixel while meticulously preserving all 200 deep spectral channels.
-* **Volumetric Convolutions:** Implements `nn.Conv3d` blocks to process the structural data in its native 3D cube shape, represented as tensors of size $(N, 1, \text{Bands}, 9, 9)$.
-* **Joint Feature Extraction:** Unlike 2D networks that only analyze spatial shapes, the 3D-CNN simultaneously processes structural topography and distinct spectral light signatures to boost classification accuracy.
+### Spatial Classification Map
+The model demonstrates strong convergence, successfully generating a full-terrain classification map across 16 agricultural land-cover categories with a peak validation accuracy of **85.5%+**. 
+
+![Classification Results](results/classification_results.png)
+
+### Training Progression
+The model was optimized using Cross-Entropy Loss combined with an AdamW optimizer and a Cosine Annealing learning rate scheduler to stabilize convergence across 35 epochs.
+
+![Training Metrics](results/training_metrics.png)
 
 ---
 
